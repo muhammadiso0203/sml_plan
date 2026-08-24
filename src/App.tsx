@@ -6,7 +6,7 @@ import NakopitelniPlan from './components/nakopitelni-plan'
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
+    <div className="min-h-screen bg-[#f8fafc] dark:bg-[#0b0f19] text-slate-900 dark:text-slate-100 transition-colors duration-200">
       <Header />
       <main className="px-6 py-4 flex flex-col gap-4">
         <FilterBar />

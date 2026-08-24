@@ -90,31 +90,31 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
   const deviation = hasFact ? fact - plan : null;
 
   return (
-    <div className="relative bg-white/95 backdrop-blur-xs border border-gray-200 rounded-lg shadow-xl p-3 text-xs min-w-44 z-50">
+    <div className="relative bg-white/95 dark:bg-slate-800/95 backdrop-blur-xs border border-gray-200 dark:border-slate-700 rounded-lg shadow-xl p-3 text-xs min-w-44 z-50 transition-colors">
       {/* Left indicator triangle */}
-      <div className="absolute -left-1.5 top-4 w-3 h-3 bg-white border-l border-b border-gray-200 rotate-45" />
+      <div className="absolute -left-1.5 top-4 w-3 h-3 bg-white dark:bg-slate-800 border-l border-b border-gray-200 dark:border-slate-700 rotate-45" />
 
-      <div className="font-bold text-gray-900 mb-2 relative z-10">{data.dateStr}</div>
-      <div className="flex flex-col gap-1 text-gray-600 relative z-10">
+      <div className="font-bold text-gray-900 dark:text-slate-100 mb-2 relative z-10">{data.dateStr}</div>
+      <div className="flex flex-col gap-1 text-gray-600 dark:text-slate-300 relative z-10">
         <div className="flex justify-between items-center">
-          <span className="text-gray-500">План:</span>
-          <span className="font-semibold text-gray-800">{plan} т</span>
+          <span className="text-gray-500 dark:text-slate-400">План:</span>
+          <span className="font-semibold text-gray-800 dark:text-slate-200">{plan} т</span>
         </div>
         {hasFact ? (
           <>
             <div className="flex justify-between items-center">
-              <span className="text-gray-500">Факт:</span>
-              <span className="font-semibold text-gray-800">{fact} т</span>
+              <span className="text-gray-500 dark:text-slate-400">Факт:</span>
+              <span className="font-semibold text-gray-800 dark:text-slate-200">{fact} т</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-500">Выполнение:</span>
-              <span className="font-semibold text-gray-800">{completionRate}%</span>
+              <span className="text-gray-500 dark:text-slate-400">Выполнение:</span>
+              <span className="font-semibold text-gray-800 dark:text-slate-200">{completionRate}%</span>
             </div>
-            <div className="flex justify-between items-center pt-1 border-t border-gray-100">
-              <span className="text-gray-500">Отклонение:</span>
+            <div className="flex justify-between items-center pt-1 border-t border-gray-100 dark:border-slate-700">
+              <span className="text-gray-500 dark:text-slate-400">Отклонение:</span>
               <span
                 className={`font-semibold ${
-                  (deviation ?? 0) >= 0 ? 'text-green-600' : 'text-rose-500'
+                  (deviation ?? 0) >= 0 ? 'text-green-600 dark:text-green-400' : 'text-rose-500 dark:text-rose-400'
                 }`}
               >
                 {(deviation ?? 0) > 0 ? `+${deviation}` : deviation} т
@@ -122,7 +122,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload }) => {
             </div>
           </>
         ) : (
-          <div className="text-gray-400 italic pt-1 border-t border-gray-100">
+          <div className="text-gray-400 dark:text-slate-500 italic pt-1 border-t border-gray-100 dark:border-slate-700">
             Факт не внесен
           </div>
         )}
@@ -149,21 +149,21 @@ export const BarChart: React.FC<BarChartProps> = ({
   const isToday = hoveredDay ? Number(hoveredDay) === currentDay : false;
 
   return (
-    <div className={`bg-white rounded-xl border border-gray-200 p-5 shadow-xs ${className}`}>
+    <div className={`bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-5 shadow-xs transition-colors ${className}`}>
       {/* Header with Title and Legend */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-3">
-        <h2 className="text-base font-bold text-gray-900 tracking-tight">
+        <h2 className="text-base font-bold text-gray-900 dark:text-slate-100 tracking-tight">
           План / Факт по дням
         </h2>
 
         {/* Legend */}
-        <div className="flex items-center mr-150 gap-10 text-xs text-gray-600 font-medium">
+        <div className="flex items-center mr-150 gap-10 text-xs text-gray-600 dark:text-slate-300 font-medium">
           <div className="flex items-center gap-1.5">
-            <span className="w-3.5 h-3.5 rounded-xs bg-[#cbd5e1] inline-block" />
+            <span className="w-3.5 h-3.5 rounded-xs bg-[#cbd5e1] dark:bg-slate-600 inline-block" />
             <span>План</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3.5 h-3.5 rounded-xs bg-[#0f6cbd] inline-block" />
+            <span className="w-3.5 h-3.5 rounded-xs bg-[#0f6cbd] dark:bg-blue-500 inline-block" />
             <span>Факт</span>
           </div>
         </div>
@@ -172,7 +172,7 @@ export const BarChart: React.FC<BarChartProps> = ({
       {/* Chart Canvas */}
       <div className="w-full h-80 relative">
         {/* Label 'Т' for Y Axis */}
-        <div className="absolute left-6 -top-1 text-xs font-medium text-gray-400 select-none">
+        <div className="absolute left-6 -top-1 text-xs font-medium text-gray-400 dark:text-slate-500 select-none">
           т
         </div>
 
@@ -194,13 +194,14 @@ export const BarChart: React.FC<BarChartProps> = ({
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
-              stroke="#f1f5f9"
+              stroke="#94a3b8"
+              strokeOpacity={0.15}
             />
 
             <XAxis
               dataKey="day"
               tickLine={false}
-              axisLine={{ stroke: '#e2e8f0' }}
+              axisLine={{ stroke: '#94a3b8', strokeOpacity: 0.2 }}
               tick={({ x, y, payload }) => {
                 const isHovered = hoveredDay === payload.value;
                 const isCurrent = Number(payload.value) === currentDay;
@@ -211,8 +212,8 @@ export const BarChart: React.FC<BarChartProps> = ({
                     textAnchor="middle"
                     className={`text-[11px] transition-colors ${
                       isHovered || isCurrent
-                        ? 'fill-[#0f6cbd] font-bold'
-                        : 'fill-gray-500 font-normal'
+                        ? 'fill-[#0f6cbd] dark:fill-blue-400 font-bold'
+                        : 'fill-gray-500 dark:fill-slate-400 font-normal'
                     }`}
                   >
                     {payload.value}
@@ -231,7 +232,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 
             <Tooltip
               content={<CustomTooltip />}
-              cursor={{ fill: 'rgba(241, 245, 249, 0.4)' }}
+              cursor={{ fill: 'rgba(148, 163, 184, 0.1)' }}
             />
 
             {/* Reference Line and Label ONLY shown when hovered */}
@@ -246,7 +247,7 @@ export const BarChart: React.FC<BarChartProps> = ({
                     ? `Сегодня, ${Number(hoveredDay)} ${monthName.toLowerCase()}а`
                     : `${Number(hoveredDay)} ${monthName.toLowerCase()}а`,
                   position: 'top',
-                  fill: '#0f6cbd',
+                  fill: '#3b82f6',
                   fontSize: 11,
                   fontWeight: 600,
                   offset: 8,
@@ -281,7 +282,7 @@ export const BarChart: React.FC<BarChartProps> = ({
         </ResponsiveContainer>
 
         {/* Sub-label for Month */}
-        <div className="text-center -mt-3 text-xs text-gray-500 font-medium select-none">
+        <div className="text-center -mt-3 text-xs text-gray-500 dark:text-slate-400 font-medium select-none">
           {monthName}
         </div>
       </div>
